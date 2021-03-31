@@ -5,7 +5,23 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-# Replace this with your code!
+class User(db.Model):
+    """A user."""
+
+    __tablename__ = "users"
+
+    user_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True, 
+                        unique=True)
+    email = db.Column(db.Text, 
+                     unique=True,
+                     nullable=False)
+    password = db.Column(db.Text, 
+                        nullable=False)
+
+    def __repr__(self):
+        return f'<User user_id={self.user_id} email={self.email}>'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///ratings', echo=True):
