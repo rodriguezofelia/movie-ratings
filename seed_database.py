@@ -44,20 +44,10 @@ for n in range(10):
 
     # TODO: create a user here
     user = crud.create_user(email, password)
-    print(user)
-    print(n)
-
+    
     # TODO: create 10 ratings for the user
     for _ in range(10):
         random_movie = choice(movies_in_db)
         random_score = randint(1, 5)
-
-        print('aahhhhhhh')
-        print(user)
-        print(movies_in_db)
-        print(random_score)
-        print(random_movie)
         
-        rating = crud.create_rating(user, random_score, random_movie)
-        print(f'RATINGGGGGG {rating}')
-        
+        rating = crud.create_rating(random_score, random_movie, user)        
