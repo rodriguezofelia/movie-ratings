@@ -12,8 +12,6 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 
-# Replace this with routes and view functions!
-
 @app.route('/')
 def homepage():
     """ View homepage"""
@@ -69,6 +67,25 @@ def create_user():
         flash('You have successfully created an account. You can now log in.')
 
     return redirect('/')
+
+@app.route('/login', methods=['POST'])
+def login_user():
+    """Logs in a user."""
+    
+    email = request.form.get('email')
+    password = request.form.get('password')
+    
+    user = crud.get_user_by_email(email)
+    correct_password = crud.is_correct_password(email, password)
+
+    if correct_password: 
+        session['user'] = user.user_id
+        flash('You have been logged in!')
+    else: 
+        flash('Uh oh! Try again.')
+
+    return redirect('/')
+
 
 if __name__ == '__main__':
     connect_to_db(app)
